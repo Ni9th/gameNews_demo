@@ -1,5 +1,4 @@
 /* eslint-disable vue/valid-v-model */
-/* eslint-disable vue/valid-v-model */
 <template>
   <div class="pWrapper">
     <van-tabs v-model="activeTab" class="tbs">
@@ -34,6 +33,7 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
+import { throttle } from '@/lib/util.js'
 import Vue from 'vue'
 import { Tab, Tabs, List, Image as VanImage, Rate } from 'vant'
 
@@ -55,7 +55,8 @@ export default {
     return {
       activeTab: 0,
       nowTime: new Date().getFullYear() + '-' + new Date().getMonth() + '-' + new Date().getDate(),
-      isLoading: false
+      isLoading: false,
+      loadMoreGame: null
     }
   },
   created () {
@@ -83,8 +84,12 @@ export default {
     }
   },
   methods: {
-    moreGame () {
+    disMoreGame () {
       this.$store.dispatch('getGameList')
+    },
+    moreGame () {
+      if (!this.loadMoreGame) this.loadMoreGame = throttle(this.disMoreGame.bind(this), 1000)
+      this.loadMoreGame()
     },
     toDetails (game) {
       this.$router.push({ name: 'gameDetails', params: { theGame: game, id: game.id } })
@@ -95,8 +100,7 @@ export default {
 <style scoped>
 .pWrapper{
   width: 100%;
-  height: 100%;
-  background-color: #fff;
+  overflow-x: hidden;
 }
 .tbs{
   width: 100%;

@@ -2,7 +2,7 @@
   <div class="pWrapper">
     <div class="hwrapper">
       <ul class="headList van-hairline-bottom">
-        <li v-for="game in gList1" :key="game.index" class="navBtn" @click='toDetail(game)'>
+        <li v-for="(game, index) in gList1" :key="index" class="navBtn" @click='toDetail(game)'>
           <van-image style="border-radius: .3rem; overflow: hidden"  width="3.5rem" height="3.5rem" :src="game.post" fit="cover" />
           <p>{{ game.name }}</p>
         </li>
@@ -72,8 +72,8 @@
         <div class="newsContent">
           <p class="van-multi-ellipsis--l3">{{ news.newsContent }}</p>
           <div class="postBox">
-            <van-image v-for="post in news.postImg"
-            :key="post.index"
+            <van-image v-for="(post, index) in news.postImg"
+            :key="index"
             :src="post"
             width="7rem"
             height="7rem"

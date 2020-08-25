@@ -66,7 +66,8 @@ export default {
 <style scoped>
 .pWrapper{
   width: 100%;
-  height: 100%;
+  /* height: 100%; */
+  overflow-x: hidden;
 }
 .gtBox{
   width: 100%;

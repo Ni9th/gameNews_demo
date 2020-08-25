@@ -47,7 +47,7 @@ export default {
   methods: {
     onSubmit (values) {
       this.$store.dispatch('login')
-      this.$router.go(-1)
+      this.$store.dispatch('swLoginPage')
     },
     backPage () {
       this.$store.dispatch('swLoginPage')
